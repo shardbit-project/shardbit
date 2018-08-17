@@ -1427,6 +1427,12 @@ int64_t GetProofOfWorkReward(int nHeight, int64_t nFees)
     if (nHeight == 1)
         nSubsidy = 400000000 * COIN; // premine
 
+    // Premine Breakdown:
+    // 200,000,000 = ShardBet Bankroll
+    // 50,000,000 = Presale Distribution
+    // 100,000,000 = Marketing / Development Costs
+    // 50,000,000 = Dev Payment (Split x5)
+
     if (nHeight > 1) nSubsidy = 100 * COIN; // instamine prevention
     if (nHeight > 1000) nSubsidy = 2000 * COIN;
     if (nHeight > 10000) nSubsidy = 1000 * COIN;
