@@ -1816,8 +1816,8 @@ Det betyder, at et gebyr på mindst %2 er påkrævet.</translation>
     </message>
     <message>
         <location filename="../sendcoinsdialog.cpp" line="-173"/>
-        <source>Enter a Shardbit address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
-        <translation>Indtast en Shardbit-adresse (f.eks B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</translation>
+        <source>Enter a Shardbit address (e.g. SXxUaHfxSx6fxxUemLY8YAo7QpX1J1zyea)</source>
+        <translation>Indtast en Shardbit-adresse (f.eks SXxUaHfxSx6fxxUemLY8YAo7QpX1J1zyea)</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -1949,7 +1949,7 @@ Det betyder, at et gebyr på mindst %2 er påkrævet.</translation>
     </message>
     <message>
         <location line="+34"/>
-        <source>The address to send the payment to (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
+        <source>The address to send the payment to (e.g. SXxUaHfxSx6fxxUemLY8YAo7QpX1J1zyea)</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1990,8 +1990,8 @@ Det betyder, at et gebyr på mindst %2 er påkrævet.</translation>
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a Shardbit address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
-        <translation>Indtast en Shardbit-adresse (f.eks B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</translation>
+        <source>Enter a Shardbit address (e.g. SXxUaHfxSx6fxxUemLY8YAo7QpX1J1zyea)</source>
+        <translation>Indtast en Shardbit-adresse (f.eks SXxUaHfxSx6fxxUemLY8YAo7QpX1J1zyea)</translation>
     </message>
 </context>
 <context>
@@ -2014,8 +2014,8 @@ Det betyder, at et gebyr på mindst %2 er påkrævet.</translation>
     </message>
     <message>
         <location line="+18"/>
-        <source>The address to sign the message with (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
-        <translation>Adresse til at underskrive meddelelsen med (f.eks B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</translation>
+        <source>The address to sign the message with (e.g. SXxUaHfxSx6fxxUemLY8YAo7QpX1J1zyea)</source>
+        <translation>Adresse til at underskrive meddelelsen med (f.eks SXxUaHfxSx6fxxUemLY8YAo7QpX1J1zyea)</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -2078,8 +2078,8 @@ Det betyder, at et gebyr på mindst %2 er påkrævet.</translation>
     </message>
     <message>
         <location line="+21"/>
-        <source>The address the message was signed with (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
-        <translation>Adressen meddelelse blev underskrevet med (f.eks B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</translation>
+        <source>The address the message was signed with (e.g. SXxUaHfxSx6fxxUemLY8YAo7QpX1J1zyea)</source>
+        <translation>Adressen meddelelse blev underskrevet med (f.eks SXxUaHfxSx6fxxUemLY8YAo7QpX1J1zyea)</translation>
     </message>
     <message>
         <location line="+40"/>
@@ -2094,8 +2094,8 @@ Det betyder, at et gebyr på mindst %2 er påkrævet.</translation>
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a Shardbit address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
-        <translation>Indtast en Shardbit-adresse (f.eks B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</translation>
+        <source>Enter a Shardbit address (e.g. SXxUaHfxSx6fxxUemLY8YAo7QpX1J1zyea)</source>
+        <translation>Indtast en Shardbit-adresse (f.eks SXxUaHfxSx6fxxUemLY8YAo7QpX1J1zyea)</translation>
     </message>
     <message>
         <location line="-2"/>

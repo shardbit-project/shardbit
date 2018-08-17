@@ -976,7 +976,7 @@ background-color: #fff;</string>
                   <string notr="true">background-color: #fff</string>
                  </property>
                  <property name="text">
-                  <string>&quot;Enter a Shardbit address (e.g. SXZ1DpQPXqAq5pWGFjLgsAsxoSRM23cbNK)&quot;)</string>
+                  <string>&quot;Enter a Shardbit address (e.g. SXxUaHfxSx6fxxUemLY8YAo7QpX1J1zyea)&quot;)</string>
                  </property>
                 </widget>
                </item>
@@ -1025,7 +1025,7 @@ background-color: #fff;</string>
           </property>
           <property name="styleSheet">
            <string notr="true">#scrollArea {
-    background-color: #fff; 
+    background-color: #fff;
     border: 1px solid black;
 }
 </string>

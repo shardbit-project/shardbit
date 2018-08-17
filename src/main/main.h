@@ -68,7 +68,7 @@ inline bool MoneyRange(int64_t nValue) { return (nValue >= 0 && nValue <= MAX_MO
 /** Threshold for nLockTime: below this value it is interpreted as block number, otherwise as UNIX timestamp. */
 static const unsigned int LOCKTIME_THRESHOLD = 500000000; // Tue Nov  5 00:53:20 1985 UTC
 
-#define FOUNDATION_ADDRESS "SUDoJvGBUWTsdtMUxQhCumSU8qAg1fR3eh"
+#define FOUNDATION_ADDRESS "SXxUaHfxSx6fxxUemLY8YAo7QpX1J1zyea"
 inline CScript GetFoundationScript() {
     CScript foundationScript;
     CBitcoinAddress foundationAddress = CBitcoinAddress(FOUNDATION_ADDRESS);
