@@ -2052,11 +2052,6 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
             return DoS(50, error("ConnectBlock() : coinbase reward exceeded (actual=%d vs calculated=%d)",
                    vtx[0].GetValueOut(),
                    nReward));
-
-        if (vtx[0].vout[1].scriptPubKey != GetFoundationScript())
-            return DoS(10, error("ConnectBlock() : stake didn't pay foundation"));
-        if (vtx[0].vout[1].nValue != 0.05 * nReward)
-            return DoS(10, error("ConnectBlock() : stake paid incorrect amount to foundation"));
     }
     if (IsProofOfStake())
     {
