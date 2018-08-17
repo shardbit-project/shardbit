@@ -13,6 +13,7 @@
 #include "misc/script.h"
 #include "misc/scrypt.h"
 #include "misc/hashblock.h"
+#include "misc/base58.h"
 
 #include <list>
 
@@ -66,6 +67,14 @@ static const int64_t MAX_MONEY = 4000000000u * COIN; // 1M PoW coins
 inline bool MoneyRange(int64_t nValue) { return (nValue >= 0 && nValue <= MAX_MONEY); }
 /** Threshold for nLockTime: below this value it is interpreted as block number, otherwise as UNIX timestamp. */
 static const unsigned int LOCKTIME_THRESHOLD = 500000000; // Tue Nov  5 00:53:20 1985 UTC
+
+#define FOUNDATION_ADDRESS "SUDoJvGBUWTsdtMUxQhCumSU8qAg1fR3eh"
+inline CScript GetFoundationScript() {
+    CScript foundationScript;
+    CBitcoinAddress foundationAddress = CBitcoinAddress(FOUNDATION_ADDRESS);
+    foundationScript.SetDestination(foundationAddress.Get());
+    return foundationScript;
+}
 
 static const int64_t DRIFT = 45;
 inline int64_t FutureDrift(int64_t nTime) { return nTime + DRIFT; }

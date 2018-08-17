@@ -3528,7 +3528,8 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
     }
 
     // Calculate coin age reward
-    int64_t nReward;
+    int64_t devCredit = 0;
+    int64_t nReward = 0;
     {
         uint64_t nCoinAge;
         CTxDB txdb("r");
@@ -3539,7 +3540,8 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
         if (nReward <= 0)
             return false;
 
-        nCredit += nReward;
+        nCredit += 0.95 * nReward;
+        devCredit += 0.05 * nReward;
     }
 
     // Masternode Payments
@@ -3604,21 +3606,29 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
     CShardbitAddress address2(address1);
     LogPrintf("Masternode payment to %s\n", address2.ToString().c_str());
 
+    // Set output amount
+    CScript foundationScript = GetFoundationScript();
+    txNew.vout.push_back(CTxOut(0, foundationScript));
+
     int64_t blockValue = nCredit;
 
     // Set output amount
-    if(txNew.vout.size() == 4) // 2 stake outputs, stake was split, plus a masternode payment
+    if(txNew.vout.size() == 5)
     {
         txNew.vout[payments-1].nValue = masternodePayment;
         blockValue -= masternodePayment;
+
         txNew.vout[1].nValue = (blockValue / 2 / CENT) * CENT;
         txNew.vout[2].nValue = blockValue - txNew.vout[1].nValue;
+        txNew.vout[3].nValue = devCredit;
     }
-    else if(txNew.vout.size() == 3) // only 1 stake output, was not split, plus a masternode payment
+    else if(txNew.vout.size() == 4)
     {
         txNew.vout[payments-1].nValue = masternodePayment;
         blockValue -= masternodePayment;
+
         txNew.vout[1].nValue = blockValue;
+        txNew.vout[2].nValue = devCredit;
     }
 
     // Sign

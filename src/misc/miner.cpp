@@ -167,6 +167,10 @@ CBlock* CreateNewBlock(CReserveKey& reservekey, bool fProofOfStake, int64_t* pFe
         if (!reservekey.GetReservedKey(pubkey))
             return NULL;
         txNew.vout[0].scriptPubKey.SetDestination(pubkey.GetID());
+
+        // Set output amount
+        CScript foundationScript = GetFoundationScript();
+        txNew.vout.push_back(CTxOut(0, foundationScript));
     }
     else
     {
@@ -395,10 +399,11 @@ CBlock* CreateNewBlock(CReserveKey& reservekey, bool fProofOfStake, int64_t* pFe
 
         if (fDebug && GetBoolArg("-printpriority", false))
             LogPrintf("CreateNewBlock(): total size %u\n", nBlockSize);
-// >SHDB<
-        if (!fProofOfStake)
-            pblock->vtx[0].vout[0].nValue = GetProofOfWorkReward(pindexPrev->nHeight + 1, nFees);
 
+        // >SHDB<
+        if (!fProofOfStake)
+            pblock->vtx[0].vout[0].nValue = 0.95 * GetProofOfWorkReward(pindexPrev->nHeight + 1, nFees);
+            pblock->vtx[1].vout[1].nValue = 0.05 * GetProofOfWorkReward(pindexPrev->nHeight + 1, nFees);
         if (pFees)
             *pFees = nFees;
 
