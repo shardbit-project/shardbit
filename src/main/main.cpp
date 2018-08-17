@@ -1422,7 +1422,7 @@ static CBigNum GetProofOfStakeLimit(int nHeight)
 int64_t GetProofOfWorkReward(int nHeight, int64_t nFees)
 {
     // Base reward.
-    int64_t nSubsidy = 0 * COIN; 
+    int64_t nSubsidy = 0 * COIN;
 
     if (nHeight == 1)
         nSubsidy = 400000000 * COIN; // premine
@@ -3751,7 +3751,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
         uint64_t nNonce = 1;
         vRecv >> pfrom->nVersion >> pfrom->nServices >> nTime >> addrMe;
 
-        if ((pfrom->nVersion < MIN_PEER_PROTO_VERSION) || (nBestHeight >= 225000 && pfrom->nVersion < MIN_PEER_PROTO_VERSION_FORK1))
+        if (pfrom->nVersion < MIN_PEER_PROTO_VERSION)
         {
             // disconnect from peers older than this proto version
             LogPrintf("partner %s using obsolete version %i; disconnecting\n", pfrom->addr.ToString(), pfrom->nVersion);
