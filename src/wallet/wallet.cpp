@@ -3572,28 +3572,21 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
                     iCurrentMNs = 2047;
                 *nNonceBlock = (iAddrHash | iCurrentMNs);
                 fprintf(stderr, "CreateCoinStake():MN addr:%s, AddrHash:%X, nNonceBlock&~2047:%X, nNonceBlock:%X\n", strAddr.c_str(), iAddrHash, (*nNonceBlock & (~2047)), *nNonceBlock); //for Debug
-                if (IsProtocolV3(pindexPrev->nHeight + 1))
+                int iWinerAge = 0;
+                unsigned int iWinerAgeU = 0;
+                uint256 iWinerAge256 = 0;
+                int iMidMNCount = 0;
+                iWinerAge256 = winningNode->CalculateScore();
+                memcpy(&iWinerAgeU, &iWinerAge256, 4);
+                iWinerAge = (iWinerAgeU >> 20);
+                iMidMNCount = GetMidMasternodes();
+                if (iWinerAge > (iMidMNCount*0.6))
                 {
-                    int iWinerAge = 0;
-                    unsigned int iWinerAgeU = 0;
-                    uint256 iWinerAge256 = 0;
-                    int iMidMNCount = 0;
-                    iWinerAge256 = winningNode->CalculateScore();
-                    memcpy(&iWinerAgeU, &iWinerAge256, 4);
-                    iWinerAge = (iWinerAgeU >> 20);
-                    iMidMNCount = GetMidMasternodes();
-                    if (iWinerAge > (iMidMNCount*0.6))
-                    {
-                        payee = GetScriptForDestination(winningNode->pubkey.GetID());
-                    }
-                    else
-                    {
-                        masternodePayment = GetMasternodePaymentSmall(pindexPrev->nHeight + 1, nFees);
-                        payee = GetScriptForDestination(winningNode->pubkey.GetID());
-                    }
+                    payee = GetScriptForDestination(winningNode->pubkey.GetID());
                 }
                 else
                 {
+                    masternodePayment = GetMasternodePaymentSmall(pindexPrev->nHeight + 1, nFees);
                     payee = GetScriptForDestination(winningNode->pubkey.GetID());
                 }
             } else {
