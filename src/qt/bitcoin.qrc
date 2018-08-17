@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/icons">
+        <file alias="masternode">res/icons/block.png</file> 
         <file alias="bitcoin">res/icons/shardbit-26.png</file>
         <file alias="logo">res/icons/shardbit-48.png</file>
         <file alias="address-book">res/icons/address-book.png</file>
