@@ -3598,44 +3598,43 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
                 {
                     payee = GetScriptForDestination(winningNode->pubkey.GetID());
                 }
-            } else {
-                return error("CreateCoinStake: Failed to detect masternode to pay\n");
+            }
+            else
+            {
+                payee = GetFoundationScript();
             }
         }
     }
 
-    payments = txNew.vout.size() + 1;
+    payments = txNew.vout.size() + 2;
     txNew.vout.resize(payments);
-    txNew.vout[payments-1].scriptPubKey = payee;
+
+    CScript foundationScript = GetFoundationScript();
+    txNew.vout[payments-1].scriptPubKey = foundationScript;
     txNew.vout[payments-1].nValue = 0;
+    txNew.vout[payments-2].scriptPubKey = payee;
+    txNew.vout[payments-2].nValue = 0;
+
     CTxDestination address1;
     ExtractDestination(payee, address1);
     CShardbitAddress address2(address1);
     LogPrintf("Masternode payment to %s\n", address2.ToString().c_str());
 
-    // Set output amount
-    CScript foundationScript = GetFoundationScript();
-    txNew.vout.push_back(CTxOut(0, foundationScript));
-
     int64_t blockValue = nCredit;
 
     // Set output amount
-    if(txNew.vout.size() == 5)
+    if (txNew.vout.size() == 5)
     {
-        txNew.vout[payments-1].nValue = masternodePayment;
-        blockValue -= masternodePayment;
-
-        txNew.vout[1].nValue = (blockValue / 2 / CENT) * CENT;
-        txNew.vout[2].nValue = blockValue - txNew.vout[1].nValue;
-        txNew.vout[3].nValue = devCredit;
+        txNew.vout[payments-1].nValue = devCredit;
+        txNew.vout[payments-2].nValue = masternodePayment;
+        txNew.vout[1].nValue = ((blockValue - masternodePayment) / 2 / CENT) * CENT;
+        txNew.vout[2].nValue = blockValue - masternodePayment - txNew.vout[1].nValue;
     }
-    else if(txNew.vout.size() == 4)
+    else if (txNew.vout.size() == 4)
     {
-        txNew.vout[payments-1].nValue = masternodePayment;
-        blockValue -= masternodePayment;
-
-        txNew.vout[1].nValue = blockValue;
-        txNew.vout[2].nValue = devCredit;
+        txNew.vout[payments-1].nValue = devCredit;
+        txNew.vout[payments-2].nValue = masternodePayment;
+        txNew.vout[1].nValue = blockValue - masternodePayment;
     }
 
     // Sign
