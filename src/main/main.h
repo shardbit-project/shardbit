@@ -77,7 +77,7 @@ inline CScript GetFoundationScript() {
 }
 
 static const int64_t DRIFT = 30;
-inline bool IsProtocolV2(int nHeight) { return TestNet() || nHeight > 40000; } 
+inline bool IsProtocolV2(int nHeight) { return TestNet() || nHeight > 40000; }
 inline int64_t FutureDrift(int64_t nTime) { return nTime + DRIFT; }
 
 /** "reject" message codes **/
@@ -85,7 +85,7 @@ static const unsigned char REJECT_INVALID = 0x10;
 
 inline int64_t GetMNCollateral(int nHeight) {
     if (nHeight > 20000) {
-        return 1000000;
+        return 500000;
     } else {
         return 100000;
     }
