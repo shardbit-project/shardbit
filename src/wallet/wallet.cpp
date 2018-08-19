@@ -3602,6 +3602,7 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
             else
             {
                 payee = GetFoundationScript();
+                LogPrintf("Couldn't find MN, paying to Foundation");
             }
         }
     }
