@@ -2120,8 +2120,10 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
 
             LogPrintf("ConnectBlock() : MN addr:%s, AddrHash:%X, nNonce&~2047:%X, nNonce:%X\n", strAddr.c_str(), iAddrHash, (nNonce & (~2047)), nNonce);
 
-            if ((nNonce & (~2047)) != iAddrHash) {
-                return DoS(1, error("Connect() : nNonce&~2047 (%X) != iAddrHash(%X)", (nNonce & (~2047)), iAddrHash));
+            if (IsProtocolV2(pindex->nHeight)) {
+                if ((nNonce & (~2047)) != iAddrHash) {
+                    return DoS(1, error("Connect() : nNonce&~2047 (%X) != iAddrHash(%X)", (nNonce & (~2047)), iAddrHash));
+                }
             }
 
             CBlockIndex* pIndexWork = pindex->pprev;
@@ -2148,20 +2150,23 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
             if (iMidMNCount > 0) {
                 if (masternodePaymentAmount > masternodePaymentShouldActual) {
                     LogPrintf("Connect() : (iMidMNCount = %d) masternodePaymentAmound %ld larger than %ld.\n", iMidMNCount, masternodePaymentAmount, masternodePaymentShouldActual);
-                    return error("Connect() : (iMidMNCount=%d) masternodePaymentAmount %ld larger than %ld.", iMidMNCount, masternodePaymentAmount, masternodePaymentShouldActual);
+                    if (IsProtocolV2(pindex->nHeight))
+                        return error("Connect() : (iMidMNCount=%d) masternodePaymentAmount %ld larger than %ld.", iMidMNCount, masternodePaymentAmount, masternodePaymentShouldActual);
                 }
             }
 
             if (iMidMNCount == 0) {
                 if (masternodePaymentAmount > masternodePaymentShouldMax) {
-                  LogPrintf("Connect() : (iMidMNCount=0) masternodePaymentAmount %ld larger than %ld.\n", masternodePaymentAmount, masternodePaymentShouldActual);
-                  return error("Connect() : (iMidMNCount=0) masternodePaymentAmount %ld larger than %ld.", masternodePaymentAmount, masternodePaymentShouldActual);
+                    LogPrintf("Connect() : (iMidMNCount=0) masternodePaymentAmount %ld larger than %ld.\n", masternodePaymentAmount, masternodePaymentShouldActual);
+                    if (IsProtocolV2(pindex->nHeight))
+                        return error("Connect() : (iMidMNCount=0) masternodePaymentAmount %ld larger than %ld.", masternodePaymentAmount, masternodePaymentShouldActual);
                 }
             }
 
             if (nStakeReward > nCalculatedStakeReward - (masternodePaymentShouldMax - masternodePaymentAmount))  {
                 LogPrintf("ConnectBlock() : coinstake pays too much V3 (actual=%ld vs calculated=%ld).\n", nStakeReward, nCalculatedStakeReward - (masternodePaymentShouldMax - masternodePaymentAmount));
-                return error("ConnectBlock() : coinstake pays too much V3 (actual=%ld vs calculated=%ld)", nStakeReward, nCalculatedStakeReward - (masternodePaymentShouldMax - masternodePaymentAmount));
+                if (IsProtocolV2(pindex->nHeight))
+                    return error("ConnectBlock() : coinstake pays too much V3 (actual=%ld vs calculated=%ld)", nStakeReward, nCalculatedStakeReward - (masternodePaymentShouldMax - masternodePaymentAmount));
             }
 
             if (GetBlockTime() > (GetAdjustedTime() - 180)) {

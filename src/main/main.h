@@ -76,7 +76,8 @@ inline CScript GetFoundationScript() {
     return foundationScript;
 }
 
-static const int64_t DRIFT = 45;
+static const int64_t DRIFT = 30;
+inline bool IsProtocolV2(int nHeight) { return TestNet() || nHeight > 40000; } 
 inline int64_t FutureDrift(int64_t nTime) { return nTime + DRIFT; }
 
 /** "reject" message codes **/
