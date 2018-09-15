@@ -1433,7 +1433,7 @@ int64_t GetProofOfWorkReward(int nHeight, int64_t nFees)
     // 100,000,000 = Marketing / Development Costs
     // 50,000,000 = Dev Payment (Split x5)
 
-    if (nHeight > 1) nSubsidy = 100 * COIN; // instamine prevention
+    if (nHeight > 1) nSubsidy = 125 * COIN; // instamine prevention
     if (nHeight > 1000) nSubsidy = 2000 * COIN;
     if (nHeight > 10000) nSubsidy = 1000 * COIN;
     if (nHeight > 100000) nSubsidy = 500 * COIN;
@@ -2064,12 +2064,6 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
 
         if (nStakeReward > nCalculatedStakeReward)
             return DoS(100, error("ConnectBlock() : coinstake pays too much(actual=%d vs calculated=%d)", nStakeReward, nCalculatedStakeReward));
-
-        if (vtx[1].vout[vtx[1].vout.size() - 1].scriptPubKey != GetFoundationScript())
-            return DoS(10, error("CheckBlock() : stake didn't pay foundation"));
-
-        if (vtx[1].vout[vtx[1].vout.size() - 1].nValue != 0.05 * nCalculatedStakeReward)
-            return DoS(10, error("ConnectBlock() : stake paid incorrect amount to foundation"));
 
         int64_t masternodePaymentShouldMax = GetMasternodePayment(pindex->nHeight, nCalculatedStakeReward);
         int64_t masternodePaymentShouldActual = masternodePaymentShouldMax;

@@ -3528,7 +3528,6 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
     }
 
     // Calculate coin age reward
-    int64_t devCredit = 0;
     int64_t nReward = 0;
     {
         uint64_t nCoinAge;
@@ -3541,7 +3540,6 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
             return false;
 
         nCredit += 0.95 * nReward;
-        devCredit += 0.05 * nReward;
     }
 
     // Masternode Payments
@@ -3601,20 +3599,15 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
             }
             else
             {
-                payee = GetFoundationScript();
-                LogPrintf("Couldn't find MN, paying to Foundation");
+                LogPrintf("CreateCoinStake: Failed to detect masternode to pay");
             }
         }
     }
 
-    payments = txNew.vout.size() + 2;
+    payments = txNew.vout.size() + 1;
     txNew.vout.resize(payments);
-
-    CScript foundationScript = GetFoundationScript();
-    txNew.vout[payments-1].scriptPubKey = foundationScript;
+    txNew.vout[payments-1].scriptPubKey = payee;
     txNew.vout[payments-1].nValue = 0;
-    txNew.vout[payments-2].scriptPubKey = payee;
-    txNew.vout[payments-2].nValue = 0;
 
     CTxDestination address1;
     ExtractDestination(payee, address1);
@@ -3624,17 +3617,16 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
     int64_t blockValue = nCredit;
 
     // Set output amount
-    if (txNew.vout.size() == 5)
+    if (txNew.vout.size() == 4)
     {
-        txNew.vout[payments-1].nValue = devCredit;
-        txNew.vout[payments-2].nValue = masternodePayment;
+        txNew.vout[payments-1].nValue = masternodePayment;
+        blockValue -= masternodePayment
         txNew.vout[1].nValue = ((blockValue - masternodePayment) / 2 / CENT) * CENT;
         txNew.vout[2].nValue = blockValue - masternodePayment - txNew.vout[1].nValue;
     }
-    else if (txNew.vout.size() == 4)
+    else if (txNew.vout.size() == 3)
     {
-        txNew.vout[payments-1].nValue = devCredit;
-        txNew.vout[payments-2].nValue = masternodePayment;
+        txNew.vout[payments-1].nValue = masternodePayment;
         txNew.vout[1].nValue = blockValue - masternodePayment;
     }
 
