@@ -214,7 +214,7 @@ bool CheckStakeKernelHash(CBlockIndex* pindexPrev, unsigned int nBits, unsigned 
         return error("CheckStakeKernelHash() : min age violation");
 
     if (nTimeBlockFrom + nStakeMaxAge < nTimeTx) //Max age requirement
-        return error("CheckStakeKernelHash() : max age violation")
+        return error("CheckStakeKernelHash() : max age violation");
 
     // Base target
     CBigNum bnTarget;
