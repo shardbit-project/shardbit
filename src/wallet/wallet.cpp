@@ -3620,14 +3620,15 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
     if (txNew.vout.size() == 4)
     {
         txNew.vout[payments-1].nValue = masternodePayment;
-        blockValue -= masternodePayment
+        blockValue -= masternodePayment;
         txNew.vout[1].nValue = ((blockValue - masternodePayment) / 2 / CENT) * CENT;
         txNew.vout[2].nValue = blockValue - masternodePayment - txNew.vout[1].nValue;
     }
     else if (txNew.vout.size() == 3)
     {
         txNew.vout[payments-1].nValue = masternodePayment;
-        txNew.vout[1].nValue = blockValue - masternodePayment;
+        blockValue -= masternodePayment;
+        txNew.vout[1].nValue = blockValue;
     }
 
     // Sign

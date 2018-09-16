@@ -79,16 +79,16 @@ public:
         // The message start string is designed to be unlikely to occur in normal data.
         // The characters are rarely used upper ASCII, not valid as UTF-8, and produce
         // a large 4-byte int at any alignment.
-        pchMessageStart[0] = 0xa3;
-        pchMessageStart[1] = 0xfb;
-        pchMessageStart[2] = 0xdb;
-        pchMessageStart[3] = 0xdb;
-        vAlertPubKey = ParseHex("7501131e64cde21b1644efc56ed3594ef64425850aa52617506177cf245575f0aa11e5b1777cfd8621ea39a7996872a07631ea25b3fdda00df37f5e982fe58850a");
+        pchMessageStart[0] = 0xb3;
+        pchMessageStart[1] = 0xdc;
+        pchMessageStart[2] = 0xf1;
+        pchMessageStart[3] = 0xac;
+        vAlertPubKey = ParseHex("7501131bcecde21b1644efc56ed3594ef64425850aa52617506177cf245575f0aa11e5b1777cfd8621ea39a7996872a07631ea25b3fdda00df37f5e982fe58850a");
         nDefaultPort = 37451;
         nRPCPort = 37452;
         bnProofOfWorkLimit = CBigNum(~uint256(0) >> 16); // starting difficulty is 1 / 2^12
 
-        const char* pszTimestamp = "Shardbit Genesis - (8/17/2018)";
+        const char* pszTimestamp = "Shardbit Genesis - (9/15/2018)";
         std::vector<CTxIn> vin;
         vin.resize(1);
         vin[0].scriptSig = CScript() << 0 << CBigNum(42) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
@@ -97,7 +97,7 @@ public:
         vout[0].SetEmpty();
 
         // original 1516154401
-        CTransaction txNew(1, 1517616496, vin, vout, 0);
+        CTransaction txNew(1, 1537047688, vin, vout, 0);
         LogPrintf("genesis mainnet transaction:  %s\n", txNew.ToString().c_str());
 
         genesis.vtx.push_back(txNew);
@@ -105,9 +105,9 @@ public:
         genesis.hashPrevBlock = 0;
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
         genesis.nVersion = 1;
-        genesis.nTime    = 1534494108; // Wednesday, 17-Jan-18 02:00:01 UTC
+        genesis.nTime    = 1537047688; // Wednesday, 17-Jan-18 02:00:01 UTC
         genesis.nBits    = bnProofOfWorkLimit.GetCompact();
-        genesis.nNonce   = 423128;
+        genesis.nNonce   = 183758;
 
         hashGenesisBlock = genesis.GetHash();
 
@@ -116,8 +116,8 @@ public:
         //LogPrintf("Display nonce so we can input it below %s\n", genesis.nNonce);
         //LogPrintf("Display time so we can input it below %s\n", genesis.nTime);
 
-        assert(hashGenesisBlock == uint256("0x481e64a9fd367821aa026e819078b4e2451a40bcf76f545ab99bff7f429233e0"));
-        assert(genesis.hashMerkleRoot == uint256("0xf40bec2889aaf52769845af430bb5065a2549387cc01ba18905933166aa52d41"));
+        assert(hashGenesisBlock == uint256("0x8415c5717f2ae7585136ad116ab480ed0b3c48297e9a2e536c857617906b33b8"));
+        assert(genesis.hashMerkleRoot == uint256("0x63388de1d0f76568bc5682dbd5cb304923e9bdb545083d1589e40d14bc856c1a"));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,63); // S
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,21);
@@ -165,18 +165,18 @@ public:
         // The message start string is designed to be unlikely to occur in normal data.
         // The characters are rarely used upper ASCII, not valid as UTF-8, and produce
         // a large 4-byte int at any alignment.
-        pchMessageStart[0] = 0xc4;
-        pchMessageStart[1] = 0xd5;
-        pchMessageStart[2] = 0xa6;
-        pchMessageStart[3] = 0xb8;
+        pchMessageStart[0] = 0xa3;
+        pchMessageStart[1] = 0xb6;
+        pchMessageStart[2] = 0xbd;
+        pchMessageStart[3] = 0xfe;
         bnProofOfWorkLimit = CBigNum(~uint256(0) >> 16);
-        vAlertPubKey = ParseHex("7501131e15afcdae1d0e4a656ed3594ef64425850aa52617506177cf245575f0aa11e5b1777cfd8621ea39a7996872a07631ea25b3fdda00df37f5e982fe58850a");
+        vAlertPubKey = ParseHex("7501131ecdefcdae1d0e4a656ed3594ef64425850aa52617506177cf245575f0aa11e5b1777cfd8621ea39a7996872a07631ea25b3fdda00df37f5e982fe58850a");
         nDefaultPort = 47451;
         nRPCPort = 47452;
         strDataDir = "testnet";
-        genesis.nTime    = 1518016375;
+        genesis.nTime    = 1537047661;
         genesis.nBits    = bnProofOfWorkLimit.GetCompact();
-        genesis.nNonce   = 123891;
+        genesis.nNonce   = 918351;
 
         hashGenesisBlock = genesis.GetHash();
 
@@ -185,8 +185,8 @@ public:
         //LogPrintf("Display nonce so we can input it below %s\n", genesis.nNonce);
         //LogPrintf("Display time so we can input it below %s\n", genesis.nTime);
 
-        assert(hashGenesisBlock == uint256("0x948673200ea614c7ad0788e6c1b424d44db6199399dbb9f644d57ee10d6fd0dd"));
-        assert(genesis.hashMerkleRoot == uint256("0xf40bec2889aaf52769845af430bb5065a2549387cc01ba18905933166aa52d41"));
+        assert(hashGenesisBlock == uint256("0x25f7ae08dd82b640d8a4b45e3fae7ba392f87e04ad1a6f313bf12c84844dbb16"));
+        assert(genesis.hashMerkleRoot == uint256("0x63388de1d0f76568bc5682dbd5cb304923e9bdb545083d1589e40d14bc856c1a"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
