@@ -71,17 +71,10 @@ static const unsigned int LOCKTIME_THRESHOLD = 500000000; // Tue Nov  5 00:53:20
 static const int64_t DRIFT = 30;
 inline bool IsProtocolV2(int nHeight) { return TestNet() || nHeight > 50000; }
 inline int64_t FutureDrift(int64_t nTime) { return nTime + DRIFT; }
+inline int64_t GetMNCollateral(int nHeight) { return 500000; }
 
 /** "reject" message codes **/
 static const unsigned char REJECT_INVALID = 0x10;
-
-inline int64_t GetMNCollateral(int nHeight) {
-    if (nHeight > 20000) {
-        return 500000;
-    } else {
-        return 100000;
-    }
-}
 
 extern CScript COINBASE_FLAGS;
 extern CCriticalSection cs_main;
