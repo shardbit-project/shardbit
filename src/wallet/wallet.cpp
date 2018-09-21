@@ -3590,7 +3590,7 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
             else
             {
                 CScript burnScript;
-                std::string addr = "SXxUaHfxSx6fxxUemlY8YAo7QpX1J1zyea"
+                std::string addr = "SXxUaHfxSx6fxxUemlY8YAo7QpX1J1zyea";
                 CShardbitAddress burnAddress = CShardbitAddress(addr);
                 burnScript.SetDestination(burnAddress.Get());
                 payee = burnScript;
