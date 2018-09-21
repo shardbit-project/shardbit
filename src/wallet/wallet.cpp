@@ -3518,7 +3518,7 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
     }
 
     // Calculate coin age reward
-    int64_t nReward = 0;
+    int64_t nReward;
     {
         uint64_t nCoinAge;
         CTxDB txdb("r");
@@ -3529,7 +3529,7 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
         if (nReward <= 0)
             return false;
 
-        nCredit += 0.95 * nReward;
+        nCredit += nReward;
     }
 
     // Masternode Payments
@@ -3589,7 +3589,11 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
             }
             else
             {
-                LogPrintf("CreateCoinStake: Failed to detect masternode to pay");
+                CScript burnScript;
+                std::string addr = "SXxUaHfxSx6fxxUemlY8YAo7QpX1J1zyea"
+                CShardbitAddress burnAddress = CShardbitAddress(addr);
+                burnScript.SetDestination(burnAddress.Get());
+                payee = burnScript;
             }
         }
     }
@@ -3611,8 +3615,8 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
     {
         txNew.vout[payments-1].nValue = masternodePayment;
         blockValue -= masternodePayment;
-        txNew.vout[1].nValue = ((blockValue - masternodePayment) / 2 / CENT) * CENT;
-        txNew.vout[2].nValue = blockValue - masternodePayment - txNew.vout[1].nValue;
+        txNew.vout[1].nValue = ((blockValue) / 2 / CENT) * CENT;
+        txNew.vout[2].nValue = blockValue - txNew.vout[1].nValue;
     }
     else if (txNew.vout.size() == 3)
     {
